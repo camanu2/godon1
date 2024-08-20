@@ -1,3 +1,46 @@
-[gd_scene format=3 uid="uid://u1e37uvg2owg"]
+[gd_scene load_steps=6 format=3 uid="uid://u1e37uvg2owg"]
+
+[ext_resource type="PackedScene" uid="uid://df6xultbiamn5" path="res://prefabs/player.tscn" id="1_5k5dk"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_rb2f2"]
+[ext_resource type="PackedScene" uid="uid://ccnemaexmjchf" path="res://prefabs/enemy.tscn" id="2_g7pfs"]
+[ext_resource type="PackedScene" uid="uid://daqk25fnigg8j" path="res://prefabs/hud.tscn" id="3_qe6p2"]
+
+[sub_resource type="Curve2D" id="Curve2D_7um5n"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 72, -8, 0, 0, 0, 0, 480, -8, 0, 0, 0, 0, 480, 712, 0, 0, 0, 0, 0, 712, 0, 0, 0, 0, 0, 712, 0, 0, 0, 0, 0, -8)
+}
+point_count = 7
 
 [node name="main" type="Node2D"]
+position = Vector2(0, 8)
+script = ExtResource("1_rb2f2")
+bug_scene = ExtResource("2_g7pfs")
+
+[node name="HUD" parent="." instance=ExtResource("3_qe6p2")]
+
+[node name="player" parent="." instance=ExtResource("1_5k5dk")]
+position = Vector2(269, 394)
+
+[node name="BugTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(227, 381)
+
+[node name="BugPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7um5n")
+
+[node name="ButPathLocation" type="PathFollow2D" parent="BugPath"]
+position = Vector2(0, -8)
+
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="hit" from="player" to="." method="gamer_over"]
+[connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_scare_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
