@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccnemaexmjchf"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_ee5ou"]
+[ext_resource type="Texture2D" uid="uid://xjbtp4xjsif0" path="res://assets/manu1.png" id="2_bnmwc"]
+[ext_resource type="Texture2D" uid="uid://6oo40lrq86wl" path="res://assets/carol2.png" id="3_ivy5t"]
+[ext_resource type="Texture2D" uid="uid://d2ivvx3xypdad" path="res://assets/carol1.png" id="4_26840"]
+[ext_resource type="Texture2D" uid="uid://bkmqmufa51ndk" path="res://assets/manu2.png" id="5_auf3a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_awaoa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bnmwc")
+}],
+"loop": true,
+"name": &"blue_beetle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bnmwc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ivy5t")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ivy5t")
+}],
+"loop": true,
+"name": &"new_animation_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_26840")
+}],
+"loop": true,
+"name": &"red_beetle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_auf3a")
+}],
+"loop": true,
+"name": &"yellow_beetle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qiqhd"]
+radius = 46.0435
+
+[node name="enemy" type="RigidBody2D"]
+collision_layer = 2
+gravity_scale = 0.0
+script = ExtResource("1_ee5ou")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(7.625, 2.625)
+scale = Vector2(0.509537, 0.50584)
+sprite_frames = SubResource("SpriteFrames_awaoa")
+animation = &"new_animation"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -1)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_qiqhd")
+
+[node name="visible" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="visible" to="." method="_on_visible_screen_exited"]

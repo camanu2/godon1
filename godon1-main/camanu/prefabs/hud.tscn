@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://daqk25fnigg8j"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_tv6y2"]
+[ext_resource type="FontFile" uid="uid://cwbt2ugsjq30h" path="res://font/Dihil.ttf" id="1_uva2f"]
+[ext_resource type="StyleBox" uid="uid://65aeblxghjtp" path="res://bnt_style.tres" id="2_7ma84"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tax6p"]
+bg_color = Color(0.160784, 0.0980392, 0.67451, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="InputEventAction" id="InputEventAction_31877"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_65umm"]
+events = [SubResource("InputEventAction_31877")]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_tv6y2")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_right = 49.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.14084, 0.546107, 0.588821, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_uva2f")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.14084, 0.546107, 0.588821, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_uva2f")
+theme_override_font_sizes/font_size = 64
+text = "Camanu"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StartButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -132.0
+offset_right = 117.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.230894, 0.946581, 0.858493, 1)
+theme_override_colors/font_pressed_color = Color(0.34188, 0.699661, 0.738875, 1)
+theme_override_colors/font_hover_color = Color(0.341176, 0.698039, 0.737255, 1)
+theme_override_colors/font_focus_color = Color(0.231373, 0.945098, 0.858824, 1)
+theme_override_fonts/font = ExtResource("1_uva2f")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_7ma84")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tax6p")
+theme_override_styles/pressed = ExtResource("2_7ma84")
+theme_override_styles/focus = ExtResource("2_7ma84")
+shortcut = SubResource("Shortcut_65umm")
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Control/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
